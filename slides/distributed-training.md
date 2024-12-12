@@ -45,7 +45,7 @@ style: |
 
 <div>
 
-![](img/data_parallel.png)
+![](img/distributed-training.html/data_parallel.png)
 
 </div>
 
@@ -87,7 +87,7 @@ style: |
 
 <div>
 
-![](img/model_parallel.png)
+![](img/distributed-training.html/model_parallel.png)
 
 </div>
 
@@ -122,7 +122,7 @@ Divide each batch into a pipeline of splits:
 
 <div>
 
-![](img/pipeline.png)
+![](img/distributed-training.html/pipeline.png)
 
 </div>
 
