@@ -1,0 +1,655 @@
+diff --git a/config/template.json b/config/template.json
+index 3890e45..37d6b6c 100644
+--- a/config/template.json
++++ b/config/template.json
+@@ -94,7 +94,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -168,7 +169,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -242,7 +244,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -323,7 +326,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -379,7 +383,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -453,7 +458,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -531,7 +537,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": false,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -612,7 +619,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": false,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "Coalition": {
+       "Mode": "hard",
+@@ -676,7 +684,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -754,7 +763,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -832,7 +842,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -910,7 +921,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -988,7 +1000,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -1062,7 +1075,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": true,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -1139,7 +1153,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": false,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "StopCondition": {
+       "OilLimit": 1000,
+@@ -1183,7 +1198,8 @@
+       "UseFleetLock": true,
+       "UseAutoSearch": false,
+       "Use2xBook": false,
+-      "AmbushEvade": true
++      "AmbushEvade": true,
++      "ClearAll": false
+     },
+     "Coalition": {
+       "Mode": "hard",
+@@ -1864,6 +1880,8 @@
+       "ServerUpdate": "00:00, 12:00"
+     },
+     "OpsiHazard1Leveling": {
++      "ActionPointPreserve": 1000,
++      "YellowCoinPreserve": 20000,
+       "TargetZone": 0
+     },
+     "OpsiFleet": {
+diff --git a/module/config/argument/args.json b/module/config/argument/args.json
+index 47e14f0..fcb708f 100644
+--- a/module/config/argument/args.json
++++ b/module/config/argument/args.json
+@@ -495,6 +495,10 @@
+       "AmbushEvade": {
+         "type": "checkbox",
+         "value": true
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -872,6 +876,10 @@
+       "AmbushEvade": {
+         "type": "checkbox",
+         "value": true
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -1249,6 +1257,10 @@
+       "AmbushEvade": {
+         "type": "checkbox",
+         "value": true
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -1756,6 +1768,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -2096,6 +2112,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -2554,6 +2574,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -2969,6 +2993,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -3361,6 +3389,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "Coalition": {
+@@ -3681,6 +3713,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -4151,6 +4187,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -4626,6 +4666,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -5101,6 +5145,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -5576,6 +5624,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -6041,6 +6093,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -6452,6 +6508,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "StopCondition": {
+@@ -6672,6 +6732,10 @@
+         "type": "checkbox",
+         "value": true,
+         "display": "hide"
++      },
++      "ClearAll": {
++        "type": "checkbox",
++        "value": false
+       }
+     },
+     "Coalition": {
+@@ -9335,6 +9399,14 @@
+       }
+     },
+     "OpsiHazard1Leveling": {
++      "ActionPointPreserve": {
++        "type": "input",
++        "value": 1000
++      },
++      "YellowCoinPreserve": {
++        "type": "input",
++        "value": 20000
++      },
+       "TargetZone": {
+         "type": "select",
+         "value": 0,
+diff --git a/module/config/argument/argument.yaml b/module/config/argument/argument.yaml
+index e3c9ed3..51017e6 100644
+--- a/module/config/argument/argument.yaml
++++ b/module/config/argument/argument.yaml
+@@ -157,6 +157,7 @@ Campaign:
+   UseAutoSearch: true
+   Use2xBook: false
+   AmbushEvade: true
++  ClearAll: false
+ StopCondition:
+   OilLimit: 1000
+   RunCount: 0
+@@ -719,6 +720,8 @@ OpsiMeowfficerFarming:
+   TargetZone:
+     value: 0
+ OpsiHazard1Leveling:
++  ActionPointPreserve: 1000
++  YellowCoinPreserve: 20000
+   TargetZone:
+     value: 0
+     option: [ 0, 44, 22 ]
+diff --git a/module/config/config_generated.py b/module/config/config_generated.py
+index 5ebece6..e0a6d0e 100644
+--- a/module/config/config_generated.py
++++ b/module/config/config_generated.py
+@@ -81,6 +81,7 @@ class GeneratedConfig:
+     Campaign_UseAutoSearch = True
+     Campaign_Use2xBook = False
+     Campaign_AmbushEvade = True
++    Campaign_ClearAll = False
+ 
+     # Group `StopCondition`
+     StopCondition_OilLimit = 1000
+@@ -427,6 +428,8 @@ class GeneratedConfig:
+     OpsiMeowfficerFarming_TargetZone = 0
+ 
+     # Group `OpsiHazard1Leveling`
++    OpsiHazard1Leveling_ActionPointPreserve = 1000
++    OpsiHazard1Leveling_YellowCoinPreserve = 20000
+     OpsiHazard1Leveling_TargetZone = 0  # 0, 44, 22
+ 
+     # Group `Daemon`
+diff --git a/module/config/config_manual.py b/module/config/config_manual.py
+index cff95a1..143554e 100644
+--- a/module/config/config_manual.py
++++ b/module/config/config_manual.py
+@@ -329,7 +329,6 @@ class ManualConfig:
+     """
+     OS_ACTION_POINT_BOX_USE = True
+     OS_ACTION_POINT_PRESERVE = 0
+-    OS_CL1_YELLOW_COINS_PRESERVE = 100000
+     OS_NORMAL_YELLOW_COINS_PRESERVE = 35000
+     OS_NORMAL_PURPLE_COINS_PRESERVE = 100
+ 
+diff --git a/module/config/i18n/en-US.json b/module/config/i18n/en-US.json
+index f6c17f6..4505bc8 100644
+--- a/module/config/i18n/en-US.json
++++ b/module/config/i18n/en-US.json
+@@ -821,6 +821,10 @@
+     "AmbushEvade": {
+       "name": "Evade Ambush(es)",
+       "help": ""
++    },
++    "ClearAll": {
++      "name": "Campaign.ClearAll.name",
++      "help": "Campaign.ClearAll.help"
+     }
+   },
+   "StopCondition": {
+@@ -2477,6 +2481,14 @@
+       "name": "CL1 leveling",
+       "help": "Consume operation coins to gain a lot of experience and a little action points.\nRecommended to carry 1-2 pre-loaded CV to obtain the highest average hourly benefit.\n\nTo avoid being unable to buying goods from port shops, Alas will retain 100,000 operation coins\nSince buying action points at the mystery shop requires a large number of operation coins, this function will be supplemented by running meowfficer farming with overflow action points."
+     },
++    "ActionPointPreserve": {
++      "name": "OpsiHazard1Leveling.ActionPointPreserve.name",
++      "help": "OpsiHazard1Leveling.ActionPointPreserve.help"
++    },
++    "YellowCoinPreserve": {
++      "name": "OpsiHazard1Leveling.YellowCoinPreserve.name",
++      "help": "OpsiHazard1Leveling.YellowCoinPreserve.help"
++    },
+     "TargetZone": {
+       "name": "Target Zone ID",
+       "help": "Only attack target zone, which can be used to avoid the event that the map cannot be refreshed due to game bug",
+diff --git a/module/config/i18n/ja-JP.json b/module/config/i18n/ja-JP.json
+index 3920749..7aba9cf 100644
+--- a/module/config/i18n/ja-JP.json
++++ b/module/config/i18n/ja-JP.json
+@@ -821,6 +821,10 @@
+     "AmbushEvade": {
+       "name": "Campaign.AmbushEvade.name",
+       "help": "Campaign.AmbushEvade.help"
++    },
++    "ClearAll": {
++      "name": "Campaign.ClearAll.name",
++      "help": "Campaign.ClearAll.help"
+     }
+   },
+   "StopCondition": {
+@@ -2477,6 +2481,14 @@
+       "name": "OpsiHazard1Leveling._info.name",
+       "help": "OpsiHazard1Leveling._info.help"
+     },
++    "ActionPointPreserve": {
++      "name": "OpsiHazard1Leveling.ActionPointPreserve.name",
++      "help": "OpsiHazard1Leveling.ActionPointPreserve.help"
++    },
++    "YellowCoinPreserve": {
++      "name": "OpsiHazard1Leveling.YellowCoinPreserve.name",
++      "help": "OpsiHazard1Leveling.YellowCoinPreserve.help"
++    },
+     "TargetZone": {
+       "name": "OpsiHazard1Leveling.TargetZone.name",
+       "help": "OpsiHazard1Leveling.TargetZone.help",
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index 7cf659c..24d734c 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -821,6 +821,10 @@
+     "AmbushEvade": {
+       "name": "规避伏击",
+       "help": ""
++    },
++    "ClearAll": {
++      "name": "地图全清",
++      "help": ""
+     }
+   },
+   "StopCondition": {
+@@ -2477,6 +2481,14 @@
+       "name": "侵蚀1练级",
+       "help": "消耗作战补给凭证以获取大量经验和少量行动力\n推荐携带1-2艘预装填航母以获取最高的时均收益\n\n为了避免无法购买港口商店的商品，Alas会保留100000作战补给凭证\n由于在神秘商店购买行动力需要大量作战补给凭证，启用本功能后会使用溢出行动力运行短猫相接来补充"
+     },
++    "ActionPointPreserve": {
++      "name": "保留 X 点行动力",
++      "help": "行动力低于 X 后停止"
++    },
++    "YellowCoinPreserve": {
++      "name": "保留 X 点黄币",
++      "help": "不足时短猫补充"
++    },
+     "TargetZone": {
+       "name": "指定海域",
+       "help": "仅出击指定的海域，可以用来规避游戏BUG导致的无法刷新海域",
+diff --git a/module/config/i18n/zh-TW.json b/module/config/i18n/zh-TW.json
+index bc97584..8d3e998 100644
+--- a/module/config/i18n/zh-TW.json
++++ b/module/config/i18n/zh-TW.json
+@@ -821,6 +821,10 @@
+     "AmbushEvade": {
+       "name": "規避伏擊",
+       "help": ""
++    },
++    "ClearAll": {
++      "name": "Campaign.ClearAll.name",
++      "help": "Campaign.ClearAll.help"
+     }
+   },
+   "StopCondition": {
+@@ -2477,6 +2481,14 @@
+       "name": "侵蝕1練級",
+       "help": "消耗作戰補給憑證以獲取大量經驗和少量行動力\n推薦攜帶1-2艘預裝填航母以獲取最高的時均收益\n\n為了避免無法購買港口商店的商品，Alas會保留100000作戰補給憑證\n由於在神秘商店購買行動力需要大量作戰補給憑證，啟用本功能後會使用溢出行動力運行短猫相接來補充"
+     },
++    "ActionPointPreserve": {
++      "name": "OpsiHazard1Leveling.ActionPointPreserve.name",
++      "help": "OpsiHazard1Leveling.ActionPointPreserve.help"
++    },
++    "YellowCoinPreserve": {
++      "name": "OpsiHazard1Leveling.YellowCoinPreserve.name",
++      "help": "OpsiHazard1Leveling.YellowCoinPreserve.help"
++    },
+     "TargetZone": {
+       "name": "指定海域",
+       "help": "僅出擊指定的海域，可以用來規避遊戲BUG導致的無法重繪海域",
+diff --git a/module/handler/fast_forward.py b/module/handler/fast_forward.py
+index 3fccdd8..b7f3ef2 100644
+--- a/module/handler/fast_forward.py
++++ b/module/handler/fast_forward.py
+@@ -153,7 +153,7 @@ class FastForwardHandler(AutoSearchHandler):
+             self.config.MAP_HAS_MAP_STORY = False
+         self.config.MAP_CLEAR_ALL_THIS_TIME = self.config.STAR_REQUIRE_3 \
+             and not self.__getattribute__(f'map_achieved_star_{self.config.STAR_REQUIRE_3}') \
+-            and (self.config.StopCondition_MapAchievement in ['map_3_stars', 'threat_safe'])
++            and (self.config.StopCondition_MapAchievement in ['map_3_stars', 'threat_safe']) or self.config.Campaign_ClearAll
+ 
+         self.map_show_info()
+ 
+diff --git a/module/os/map.py b/module/os/map.py
+index 6175d47..8472e64 100644
+--- a/module/os/map.py
++++ b/module/os/map.py
+@@ -436,7 +436,7 @@ class OSMap(OSFleet, Map, GlobeCamera, StrategicSearchHandler):
+         Keeping enough startup AP to run CL1.
+         """
+         if self.is_cl1_enabled and get_os_reset_remain() > 2 \
+-                and self.get_yellow_coins() > self.config.OS_CL1_YELLOW_COINS_PRESERVE:
++                and self.get_yellow_coins() > self.config.OpsiHazard1Leveling_YellowCoinPreserve:
+             logger.info('Keep 1000 AP when CL1 available')
+             if not self.action_point_check(1000):
+                 self.config.opsi_task_delay(cl1_preserve=True)
+diff --git a/module/os/operation_siren.py b/module/os/operation_siren.py
+index 6c763e7..4219784 100644
+--- a/module/os/operation_siren.py
++++ b/module/os/operation_siren.py
+@@ -319,7 +319,7 @@ class OperationSiren(OSMap):
+         if self.is_cl1_enabled and self.config.OpsiMeowfficerFarming_ActionPointPreserve < 1000:
+             logger.info('With CL1 leveling enabled, set action point preserve to 1000')
+             self.config.OpsiMeowfficerFarming_ActionPointPreserve = 1000
+-        preserve = min(self.get_action_point_limit(), self.config.OpsiMeowfficerFarming_ActionPointPreserve, 2000)
++        preserve = min(self.get_action_point_limit(), self.config.OpsiMeowfficerFarming_ActionPointPreserve)
+         if preserve == 0:
+             self.config.override(OpsiFleet_Submarine=False)
+         if self.is_cl1_enabled:
+@@ -359,7 +359,7 @@ class OperationSiren(OSMap):
+                 check_rest_ap = True
+                 if not self.is_cl1_enabled and self.config.OpsiGeneral_BuyActionPointLimit > 0:
+                     keep_current_ap = False
+-                if self.is_cl1_enabled and self.get_yellow_coins() >= self.config.OS_CL1_YELLOW_COINS_PRESERVE:
++                if self.is_cl1_enabled and self.get_yellow_coins() >= self.config.OpsiHazard1Leveling_YellowCoinPreserve:
+                     check_rest_ap = False
+                     try:
+                         self.action_point_set(cost=0, keep_current_ap=keep_current_ap, check_rest_ap=check_rest_ap)
+@@ -415,7 +415,7 @@ class OperationSiren(OSMap):
+             self.config.cross_set(keys='OpsiMeowfficerFarming.Scheduler.Enable', value=True)
+         while True:
+             # Limited action point preserve of hazard 1 to 200
+-            self.config.OS_ACTION_POINT_PRESERVE = 200
++            self.config.OS_ACTION_POINT_PRESERVE = self.config.OpsiHazard1Leveling_ActionPointPreserve
+             if self.config.is_task_enabled('OpsiAshBeacon') \
+                     and not self._ash_fully_collected \
+                     and self.config.OpsiAshBeacon_EnsureFullyCollected:
+@@ -423,8 +423,8 @@ class OperationSiren(OSMap):
+                 self.config.OS_ACTION_POINT_PRESERVE = 0
+             logger.attr('OS_ACTION_POINT_PRESERVE', self.config.OS_ACTION_POINT_PRESERVE)
+ 
+-            if self.get_yellow_coins() < self.config.OS_CL1_YELLOW_COINS_PRESERVE:
+-                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OS_CL1_YELLOW_COINS_PRESERVE}')
++            if self.get_yellow_coins() < self.config.OpsiHazard1Leveling_YellowCoinPreserve:
++                logger.info(f'Reach the limit of yellow coins, preserve={self.config.OpsiHazard1Leveling_YellowCoinPreserve}')
+                 with self.config.multi_set():
+                     self.config.task_delay(server_update=True)
+                     if not self.is_in_opsi_explore():
+@@ -439,12 +439,12 @@ class OperationSiren(OSMap):
+             if self.config.OpsiGeneral_BuyActionPointLimit > 0:
+                 keep_current_ap = False
+             self.action_point_set(cost=70, keep_current_ap=keep_current_ap, check_rest_ap=True)
+-            if self._action_point_total >= 3000:
+-                with self.config.multi_set():
+-                    self.config.task_delay(server_update=True)
+-                    if not self.is_in_opsi_explore():
+-                        self.config.task_call('OpsiMeowfficerFarming')
+-                self.config.task_stop()
++            # if self._action_point_total >= 3000:
++            #     with self.config.multi_set():
++            #         self.config.task_delay(server_update=True)
++            #         if not self.is_in_opsi_explore():
++            #             self.config.task_call('OpsiMeowfficerFarming')
++            #     self.config.task_stop()
+ 
+             if self.config.OpsiHazard1Leveling_TargetZone != 0:
+                 zone = self.config.OpsiHazard1Leveling_TargetZone
+diff --git a/module/os_handler/action_point.py b/module/os_handler/action_point.py
+index 0bc4851..ca2ac67 100644
+--- a/module/os_handler/action_point.py
++++ b/module/os_handler/action_point.py
+@@ -403,7 +403,7 @@ class ActionPointHandler(UI, MapEventHandler):
+ 
+             # Sort action point boxes
+             box = []
+-            for index in [1, 2, 3]:
++            for index in reversed([1, 2, 3]):
+                 if self._action_point_box[index] > 0:
+                     if self._action_point_current + ACTION_POINT_BOX[index] >= 200:
+                         box.append(index)
+diff --git a/module/os_shop/shop.py b/module/os_shop/shop.py
+index 1fe48b9..ff3c122 100644
+--- a/module/os_shop/shop.py
++++ b/module/os_shop/shop.py
+@@ -223,7 +223,7 @@ class OSShop(PortShop, AkashiShop):
+     @cached_property
+     def yellow_coins_preserve(self):
+         if self.is_cl1_enabled:
+-            return self.config.OS_CL1_YELLOW_COINS_PRESERVE
++            return self.config.OpsiHazard1Leveling_YellowCoinPreserve
+         else:
+             return self.config.OS_NORMAL_YELLOW_COINS_PRESERVE
+ 
