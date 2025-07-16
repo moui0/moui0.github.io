@@ -126,21 +126,11 @@ img[alt~="center"] {
 
 ## Active Gradient Offloading
 
-
-<div class="columns" style="grid-template-columns: 50% 50%">
-<div>
-
-![](./img/lohan/gradient-offloading.png)
-
-</div>
-<div>
+![center h:200](./img/lohan/gradient-offloading.png)
 
 1. CPU 中的优化器更新梯度
 2. 重叠 GPU 反向传播和 CPU 梯度更新，提高 GPU 利用率
 3. 调整 SSD 读写顺序，提高 SSD PCIe 利用率
-
-</div>
-</div>
 
 ---
 
@@ -148,10 +138,36 @@ img[alt~="center"] {
 
 ## Holistic Traffic-Aware Activation Swapping Management
 
-- 保留所有激活值避免反向传播时重新计算
-- 将激活值分片卸载到 CPU 和 SSD，降低 CPU memory 需求的同时、减小 SSD 读写的数据量和延迟
-- 通过 profiling 阶段得到的模型和硬件信息动态确定激活值在 SSD 上的比例  $\alpha$，      
-   
+- 根据 profiling 结果搜索需要保留并卸载的激活值总量，实现 CPU memory/SSD PCIe 传输量和反向传播重新计算的 trade off
+- 优先保留 offloading benefit 更高的激活值，$OB_{layer} = \frac{FLOP_{layer}}{A_{layer}}$
+- 优先卸载到 CPU（不超过 $MEM_M^{avail}$），剩余的卸载到 SSD
+
 ---
 
-# 
+# Evaluation Settings
+
+![center h:500](./img/lohan/eval-setting.png)
+
+---
+
+# Evaluation
+
+![center h:500](./img/lohan/result1.png)
+
+---
+
+# Evaluation
+
+![center h:550](./img/lohan/result2.png)
+
+---
+
+# Ratel-DP Framework
+
+![center h:500](./img/lohan/ratel-dp.png)
+
+---
+
+# Ratel-DP Performance
+
+![center h:500](./img/lohan/ratel-dp-result.png)
