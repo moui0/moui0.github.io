@@ -1,0 +1,13 @@
+diff --git a/module/map/map.py b/module/map/map.py
+index c06e6d9..73336d5 100644
+--- a/module/map/map.py
++++ b/module/map/map.py
+@@ -382,7 +382,7 @@ class Map(Fleet):
+             logger.hr('Clear potential BOSS')
+             grids = grids.sort('weight', 'cost')
+             logger.info('Grid: %s' % str(grid))
+-            self.fleet_boss.clear_chosen_enemy(grid)
++            self.fleet_boss.clear_chosen_enemy(grid, expected='boss')
+             if self.battle_count > battle_count:
+                 logger.info('Boss guessing correct.')
+                 return True
