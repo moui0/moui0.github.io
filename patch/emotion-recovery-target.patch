@@ -1,0 +1,52 @@
+diff --git a/module/combat/emotion.py b/module/combat/emotion.py
+index 325cb56..b2b36c9 100644
+--- a/module/combat/emotion.py
++++ b/module/combat/emotion.py
+@@ -47,6 +47,14 @@ class FleetEmotion:
+         """
+         return getattr(self.config, f'Emotion_Fleet{self.fleet}Value')
+ 
++    @property
++    def target(self):
++        """
++        Returns:
++            int: 0 to 150
++        """
++        return getattr(self.config, f'Emotion_Fleet{self.fleet}Target')
++
+     @property
+     def value_name(self):
+         """
+@@ -236,7 +244,11 @@ class Emotion:
+         self.update()
+         self.record()
+         self.show()
+-        recovered = max([f.get_recovered(b) for f, b in zip(self.fleets, battle)])
++
++        if all(f.current >= f.limit + b for f, b in zip(self.fleets, battle)):
++            return
++
++        recovered = max([f.get_recovered(max(b, f.target - f.limit)) for f, b in zip(self.fleets, battle)])
+         if recovered > datetime.now():
+             logger.info('Delay current task to prevent emotion control in the future')
+             self.config.task_delay(target=recovered)
+diff --git a/module/config/argument/argument.yaml b/module/config/argument/argument.yaml
+index 7e17ccd..0b83b28 100644
+--- a/module/config/argument/argument.yaml
++++ b/module/config/argument/argument.yaml
+@@ -212,6 +213,7 @@ Emotion:
+     value: calculate
+     option: [ calculate, ignore, calculate_ignore ]
+   Fleet1Value: 119
++  Fleet1Target: 119
+   Fleet1Record:
+     value: 2020-01-01 00:00:00
+     display: disabled
+@@ -223,6 +225,7 @@ Emotion:
+     option: [ not_in_dormitory, dormitory_floor_1, dormitory_floor_2 ]
+   Fleet1Oath: false
+   Fleet2Value: 119
++  Fleet2Target: 119
+   Fleet2Record:
+     value: 2020-01-01 00:00:00
+     display: disabled

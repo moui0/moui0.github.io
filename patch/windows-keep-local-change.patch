@@ -1,0 +1,212 @@
+diff --git a/deploy/Windows/config.py b/deploy/Windows/config.py
+index c7b5e59..6083350 100644
+--- a/deploy/Windows/config.py
++++ b/deploy/Windows/config.py
+@@ -20,6 +20,7 @@ class ConfigModel:
+     GitProxy: Optional[str] = None
+     SSLVerify: bool = False
+     AutoUpdate: bool = True
++    KeepLocalChanges: bool = False
+ 
+     # Python
+     PythonExecutable: str = "./toolkit/python.exe"
+diff --git a/deploy/Windows/git.py b/deploy/Windows/git.py
+index acc4db4..c873f6b 100644
+--- a/deploy/Windows/git.py
++++ b/deploy/Windows/git.py
+@@ -52,7 +52,8 @@ class GitManager(DeployConfig):
+         return conf
+ 
+     def git_repository_init(
+-            self, repo, source='origin', branch='master', proxy='', ssl_verify=True
++            self, repo, source='origin', branch='master',
++            proxy='', ssl_verify=True, keep_changes=False
+     ):
+         logger.hr('Git Init', 1)
+         if not self.execute(f'"{self.git}" init', allow_failure=True):
+@@ -103,12 +104,25 @@ class GitManager(DeployConfig):
+             if os.path.exists(lock_file):
+                 logger.info(f'Lock file {lock_file} exists, removing')
+                 os.remove(lock_file)
+-        self.execute(f'"{self.git}" reset --hard {source}/{branch}')
+-        Progress.GitReset()
+-        # Since `git fetch` is already called, checkout is faster
+-        if not self.execute(f'"{self.git}" checkout {branch}', allow_failure=True):
+-            self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
+-        Progress.GitCheckout()
++        if keep_changes:
++            if self.execute(f'"{self.git}" stash', allow_failure=True):
++                self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++                if self.execute(f'"{self.git}" stash pop', allow_failure=True):
++                    pass
++                else:
++                    # No local changes to existing files, untracked files not included
++                    logger.info('Stash pop failed, there seems to be no local changes, skip instead')
++            else:
++                logger.info('Stash failed, this may be the first installation, drop changes instead')
++                self.execute(f'"{self.git}" reset --hard {source}/{branch}')
++                self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++        else:
++            self.execute(f'"{self.git}" reset --hard {source}/{branch}')
++            Progress.GitReset()
++            # Since `git fetch` is already called, checkout is faster
++            if not self.execute(f'"{self.git}" checkout {branch}', allow_failure=True):
++                self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++            Progress.GitCheckout()
+ 
+         logger.hr('Show Version', 1)
+         self.execute(f'"{self.git}" --no-pager log --no-merges -1')
+@@ -135,7 +149,7 @@ class GitManager(DeployConfig):
+             return
+ 
+         if self.GitOverCdn:
+-            if self.goc_client.update():
++            if self.goc_client.update(keep_changes=self.KeepLocalChanges):
+                 return
+ 
+         self.git_repository_init(
+@@ -144,4 +158,5 @@ class GitManager(DeployConfig):
+             branch=self.Branch,
+             proxy=self.GitProxy,
+             ssl_verify=self.SSLVerify,
++            keep_changes=self.KeepLocalChanges,
+         )
+diff --git a/deploy/Windows/template.yaml b/deploy/Windows/template.yaml
+index 1dc91ea..a96aba9 100644
+--- a/deploy/Windows/template.yaml
++++ b/deploy/Windows/template.yaml
+@@ -23,6 +23,11 @@ Deploy:
+     # Update Alas at startup
+     # [In most cases] Use true
+     AutoUpdate: true
++    # Whether to keep local changes during update
++    # User settings, logs and screenshots will be kept, no mather this is true or false
++    # [Developer] Use true, if you modified the code
++    # [Other] Use false
++    KeepLocalChanges: true
+ 
+   Python:
+     # Filepath of python executable `python.exe`
+diff --git a/deploy/config.py b/deploy/config.py
+index ea56c22..e631281 100644
+--- a/deploy/config.py
++++ b/deploy/config.py
+@@ -17,6 +17,7 @@ class ConfigModel:
+     GitProxy: Optional[str] = None
+     SSLVerify: bool = False
+     AutoUpdate: bool = True
++    KeepLocalChanges: bool = False
+ 
+     # Python
+     PythonExecutable: str = "./toolkit/python.exe"
+diff --git a/deploy/git.py b/deploy/git.py
+index 669870a..0ec4ba8 100644
+--- a/deploy/git.py
++++ b/deploy/git.py
+@@ -23,7 +23,8 @@ class GitManager(DeployConfig):
+             logger.info(f'File not found: {file}')
+ 
+     def git_repository_init(
+-            self, repo, source='origin', branch='master', proxy='', ssl_verify=True
++            self, repo, source='origin', branch='master',
++            proxy='', ssl_verify=True, keep_changes=False
+     ):
+         logger.hr('Git Init', 1)
+         if not self.execute(f'"{self.git}" init', allow_failure=True):
+@@ -62,8 +63,21 @@ class GitManager(DeployConfig):
+             if os.path.exists(lock_file):
+                 logger.info(f'Lock file {lock_file} exists, removing')
+                 os.remove(lock_file)
+-        self.execute(f'"{self.git}" reset --hard {source}/{branch}')
+-        self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++        if keep_changes:
++            if self.execute(f'"{self.git}" stash', allow_failure=True):
++                self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++                if self.execute(f'"{self.git}" stash pop', allow_failure=True):
++                    pass
++                else:
++                    # No local changes to existing files, untracked files not included
++                    logger.info('Stash pop failed, there seems to be no local changes, skip instead')
++            else:
++                logger.info('Stash failed, this may be the first installation, drop changes instead')
++                self.execute(f'"{self.git}" reset --hard {source}/{branch}')
++                self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
++        else:
++            self.execute(f'"{self.git}" reset --hard {source}/{branch}')
++            self.execute(f'"{self.git}" pull --ff-only {source} {branch}')
+ 
+         logger.hr('Show Version', 1)
+         self.execute(f'"{self.git}" --no-pager log --no-merges -1')
+@@ -88,7 +102,7 @@ class GitManager(DeployConfig):
+             return
+ 
+         if self.GitOverCdn:
+-            if self.goc_client.update():
++            if self.goc_client.update(keep_changes=self.KeepLocalChanges):
+                 return
+ 
+         self.git_repository_init(
+@@ -97,6 +111,7 @@ class GitManager(DeployConfig):
+             branch=self.Branch,
+             proxy=self.GitProxy,
+             ssl_verify=self.SSLVerify,
++            keep_changes=self.KeepLocalChanges,
+         )
+ 
+ 
+diff --git a/deploy/git_over_cdn/client.py b/deploy/git_over_cdn/client.py
+index a8fb5b5..cbb6349 100644
+--- a/deploy/git_over_cdn/client.py
++++ b/deploy/git_over_cdn/client.py
+@@ -204,7 +204,7 @@ class GitOverCdnClient:
+             self.logger.warning(f'TimeoutExpired when calling {cmd}, stdout={stdout}, stderr={stderr}')
+         return stdout.decode()
+ 
+-    def git_reset(self):
++    def git_reset(self, keep_changes=False):
+         """
+         git reset --hard <commit>
+         """
+@@ -217,7 +217,12 @@ class GitOverCdnClient:
+             if os.path.exists(lock_file):
+                 self.logger.info(f'Lock file {lock_file} exists, removing')
+                 os.remove(lock_file)
+-        self.git_command('reset', '--hard', f'{self.source}/{self.branch}')
++        if keep_changes:
++            self.git_command('stash')
++            self.git_command('reset', '--hard', f'{self.source}/{self.branch}')
++            self.git_command('stash', 'pop')
++        else:
++            self.git_command('reset', '--hard', f'{self.source}/{self.branch}')
+ 
+     def get_status(self):
+         """
+@@ -240,8 +245,11 @@ class GitOverCdnClient:
+         self.logger.info('Current repo is behind remote')
+         return 'behind'
+ 
+-    def update(self):
++    def update(self, keep_changes=False):
+         """
++        Args:
++            keep_changes:
++
+         Returns:
+             bool: If repo is up-to-date
+         """
+@@ -255,13 +263,13 @@ class GitOverCdnClient:
+             return False
+         if self.current_commit == self.latest_commit:
+             self.logger.info('Already up to date')
+-            self.git_reset()
++            self.git_reset(keep_changes=keep_changes)
+             return True
+ 
+         if not self.download_pack():
+             return False
+         if not self.update_refs():
+             return False
+-        self.git_reset()
++        self.git_reset(keep_changes=keep_changes)
+         self.logger.info('Update success')
+         return True

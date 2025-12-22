@@ -1,0 +1,21 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index c4752f8..a39bc31 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -2556,12 +2556,12 @@
+       "help": "消耗作战补给凭证以获取大量经验和少量行动力\n推荐携带1-2艘预装填航母以获取最高的时均收益\n\n为了避免无法购买港口商店的商品，Alas会保留100000作战补给凭证\n由于在神秘商店购买行动力需要大量作战补给凭证，启用本功能后会使用溢出行动力运行短猫相接来补充"
+     },
+     "ActionPointPreserve": {
+-      "name": "OpsiHazard1Leveling.ActionPointPreserve.name",
+-      "help": "OpsiHazard1Leveling.ActionPointPreserve.help"
++      "name": "保留 X 点行动力",
++      "help": "行动力低于 X 后停止"
+     },
+     "YellowCoinPreserve": {
+-      "name": "OpsiHazard1Leveling.YellowCoinPreserve.name",
+-      "help": "OpsiHazard1Leveling.YellowCoinPreserve.help"
++      "name": "保留 X 点黄币",
++      "help": "不足时短猫补充"
+     },
+     "TargetZone": {
+       "name": "指定海域",

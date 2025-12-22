@@ -1,0 +1,27 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index c4752f8..a39bc31 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -2424,14 +2424,14 @@
+       "help": "自动更新的数值，填0可重置进度，重置后自动跳过已开荒的海域\n支持海域ID、国服/国际服/日服/台服海域名称，例如 \"51\", \"NA海域东南E\", \"NA Ocean SE Sector E\""
+     },
+     "HazardLevel": {
+-      "name": "OpsiExplore.HazardLevel.name",
+-      "help": "OpsiExplore.HazardLevel.help",
+-      "0": "0",
+-      "1": "1",
+-      "2": "2",
+-      "3": "3",
+-      "4": "4",
+-      "5": "5"
++      "name": "清理低于特定侵蚀等级的海域",
++      "help": "",
++      "0": "1 和 2",
++      "1": "3",
++      "2": "4",
++      "3": "5",
++      "4": "6",
++      "5": "中心海域"
+     }
+   },
+   "OpsiShop": {

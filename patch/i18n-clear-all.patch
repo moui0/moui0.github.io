@@ -1,0 +1,15 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index c4752f8..a39bc31 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -844,8 +844,8 @@
+       "help": ""
+     },
+     "ClearAll": {
+-      "name": "Campaign.ClearAll.name",
+-      "help": "Campaign.ClearAll.help"
++      "name": "地图全清",
++      "help": ""
+     }
+   },
+   "StopCondition": {

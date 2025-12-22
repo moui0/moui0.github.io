@@ -1,0 +1,25 @@
+diff --git a/module/config/argument/argument.yaml b/module/config/argument/argument.yaml
+index 7e17ccd..0b83b28 100644
+--- a/module/config/argument/argument.yaml
++++ b/module/config/argument/argument.yaml
+@@ -157,6 +157,7 @@ Campaign:
+   UseAutoSearch: true
+   Use2xBook: false
+   AmbushEvade: true
++  ClearAll: false
+ StopCondition:
+   OilLimit: 1000
+   RunCount: 0
+diff --git a/module/handler/fast_forward.py b/module/handler/fast_forward.py
+index dd9de15..bdb9993 100644
+--- a/module/handler/fast_forward.py
++++ b/module/handler/fast_forward.py
+@@ -159,7 +159,7 @@ class FastForwardHandler(AutoSearchHandler):
+             self.config.MAP_HAS_MAP_STORY = False
+         self.config.MAP_CLEAR_ALL_THIS_TIME = self.config.STAR_REQUIRE_3 \
+             and not self.__getattribute__(f'map_achieved_star_{self.config.STAR_REQUIRE_3}') \
+-            and (self.config.StopCondition_MapAchievement in ['map_3_stars', 'threat_safe'])
++            and (self.config.StopCondition_MapAchievement in ['map_3_stars', 'threat_safe']) or self.config.Campaign_ClearAll
+ 
+         self.map_show_info()
+ 

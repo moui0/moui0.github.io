@@ -1,0 +1,26 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index c4752f8..a39bc31 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -1017,8 +1017,8 @@
+       "help": ""
+     },
+     "Fleet1Target": {
+-      "name": "Emotion.Fleet1Target.name",
+-      "help": "Emotion.Fleet1Target.help"
++      "name": "一队心情回复目标值",
++      "help": "心情消耗到阈值以下后，至少恢复到目标值后再出击，避免任务频繁切换"
+     },
+     "Fleet1Record": {
+       "name": "一队心情记录时间",
+@@ -1048,8 +1048,8 @@
+       "help": ""
+     },
+     "Fleet2Target": {
+-      "name": "Emotion.Fleet2Target.name",
+-      "help": "Emotion.Fleet2Target.help"
++      "name": "二队心情回复目标值",
++      "help": "心情消耗到阈值以下后，至少恢复到目标值后再出击，避免任务频繁切换"
+     },
+     "Fleet2Record": {
+       "name": "二队心情记录时间",
