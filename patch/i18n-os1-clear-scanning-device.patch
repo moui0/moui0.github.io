@@ -1,0 +1,15 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index 3fc9644..884c760 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -2565,8 +2565,8 @@
+       "help": "不足时短猫补充"
+     },
+     "UseScanningDevice": {
+-      "name": "OpsiHazard1Leveling.UseScanningDevice.name",
+-      "help": "OpsiHazard1Leveling.UseScanningDevice.help"
++      "name": "使用塞壬探测装置",
++      "help": ""
+     },
+     "TargetZone": {
+       "name": "指定海域",

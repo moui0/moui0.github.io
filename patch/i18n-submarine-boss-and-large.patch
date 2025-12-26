@@ -1,0 +1,13 @@
+diff --git a/module/config/i18n/zh-CN.json b/module/config/i18n/zh-CN.json
+index 28c48f7..d05a18b 100644
+--- a/module/config/i18n/zh-CN.json
++++ b/module/config/i18n/zh-CN.json
+@@ -984,7 +984,7 @@
+       "boss_only": "仅BOSS战",
+       "hunt_and_boss": "狩猎及BOSS战",
+       "every_combat": "每战出击",
+-      "boss_and_large_enemy": "boss_and_large_enemy"
++      "boss_and_large_enemy": "BOSS战和三星敌人"
+     },
+     "AutoSearchMode": {
+       "name": "潜艇自律方案",
